@@ -5,7 +5,7 @@ class Tree {
         this.array = ((v) => {
             // 1. Sort values
             const sorted = v.sort((a, b) => a - b);
-            // 2. Remove duplicates by "casting" it as a Set
+            // 2. Remove duplicates by "casting" array as a Set
             return Array.from(new Set(sorted));
         })(values);
         console.log(this.array);
@@ -18,14 +18,18 @@ class Tree {
             return null;
         }
 
+        // calculate middle value in sorted array
         const mid = Math.trunc((start + end) / 2);
+        // construct root node using mid value
         const root = Node(arr[mid]);
 
+        // recurse through left and right subtrees
         root.left = this.buildTree(arr, start, mid - 1);
         root.right = this.buildTree(arr, mid + 1, end);
 
         return root;
     }
+
     prettyPrint() {
         const _prettyPrint = (node, prefix = '', isLeft = true) => {
             if (node.right !== null) {
