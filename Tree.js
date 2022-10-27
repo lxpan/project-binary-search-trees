@@ -61,7 +61,40 @@ class Tree {
     }
 
     delete(value, root) {
-        
+        if (root == null) {
+            return root;
+        }
+
+        // recurse through left subtree if value smaller than root
+        if (value < root.data) {
+            root.left = this.delete(value, root.left);
+        }
+        // recurse through right subtree if value greater than root
+        else if (value > root.data) {
+            root.right = this.delete(value, root.right);
+        }
+
+        else {
+            // if leaf node, then simply remove it
+            if (root.left == null && root.right == null) {
+                return null;
+            }
+            // if node has one right child, return that child
+            else if (root.left == null) {
+                const tempNode = root.right;
+                root = null;
+                return tempNode;
+            }
+            // if node has one left child, return that child
+            else if (root.right == null) {
+                const tempNode = root.left;
+                root = null;
+                return tempNode;
+            }
+            // node with two children - to be implemented
+        }
+
+        return root;
     }
 
     prettyPrint() {
