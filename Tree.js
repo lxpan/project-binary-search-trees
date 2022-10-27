@@ -30,6 +30,40 @@ class Tree {
         return root;
     }
 
+    search(value, root) {
+        if (root == null || root.data == value) {
+            return root;
+        }
+
+        if (value < root.data) {
+            return this.insert(value, root.left);
+        } else {
+            return this.insert(value, root.right)
+        }
+    }
+
+    insert(value, root) {
+        if (root == null || root == undefined) {
+            return Node(value);
+        }
+
+        if (value < root.data) {
+            // return this.insert(value, root.left);
+            root.left = this.insert(value, root.left);
+        }
+        else if (value > root.data) {
+            // return this.insert(value, root.right);
+            root.right = this.insert(value, root.right);
+        }
+
+        // return root node after insertion
+        return root;
+    }
+
+    delete(value, root) {
+        
+    }
+
     prettyPrint() {
         const _prettyPrint = (node, prefix = '', isLeft = true) => {
             if (node.right !== null) {
@@ -47,14 +81,16 @@ class Tree {
                     true
                 );
             }
-        }
+        };
 
         _prettyPrint(this.root);
     }
-    
 }
 
-// const testArray = [1, 7, 4, 4, 23, 8, 9];
-const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
+console.log(testTree.prettyPrint());
+console.log('--------------');
+// testTree.root = testTree.insert(2, testTree.root);
+testTree.root = testTree.delete(1, testTree.root);
 console.log(testTree.prettyPrint());
