@@ -70,18 +70,18 @@ class Tree {
         return current;
     }
 
-    delete(value, root) {
+    delete(data, root) {
         if (root == null) {
             return root;
         }
 
         // recurse through left subtree if value smaller than root
-        if (value < root.data) {
-            root.left = this.delete(value, root.left);
+        if (data < root.data) {
+            root.left = this.delete(data, root.left);
         }
         // recurse through right subtree if value greater than root
-        else if (value > root.data) {
-            root.right = this.delete(value, root.right);
+        else if (data > root.data) {
+            root.right = this.delete(data, root.right);
         }
 
         else {
@@ -139,7 +139,7 @@ const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
 console.log(testTree.prettyPrint());
 console.log('--------------');
-// testTree.root = testTree.insert(2, testTree.root);
+testTree.root = testTree.insert(2, testTree.root);
 testTree.root = testTree.delete(7, testTree.root);
 console.log(testTree.prettyPrint());
 
