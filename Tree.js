@@ -60,6 +60,16 @@ class Tree {
         return root;
     }
 
+    minValueNode(node) {
+        let current = node;
+        
+        while(current.left !== null) {
+            current = current.left;
+        }
+
+        return current;
+    }
+
     delete(value, root) {
         if (root == null) {
             return root;
@@ -91,7 +101,12 @@ class Tree {
                 root = null;
                 return tempNode;
             }
-            // node with two children - to be implemented
+            /* == node with two children ==
+            1. find the next biggest value -- i.e. find smallest value in right subtree relative to target node
+            2. delete this node and copy key to target node */
+            const temp = this.minValueNode(root.right);
+            root.data = temp.data;
+            root.right = this.delete(temp.data, root.right);
         }
 
         return root;
@@ -125,5 +140,7 @@ const testTree = new Tree(testArray);
 console.log(testTree.prettyPrint());
 console.log('--------------');
 // testTree.root = testTree.insert(2, testTree.root);
-testTree.root = testTree.delete(1, testTree.root);
+testTree.root = testTree.delete(7, testTree.root);
 console.log(testTree.prettyPrint());
+
+
