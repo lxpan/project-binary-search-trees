@@ -99,9 +99,9 @@ class Tree {
             }
             /* == node with two children ==
             1. find the next biggest value -- i.e. find smallest value in right subtree relative to target node
-            2. delete this node and copy key to target node */
+            2. copy NBV data to target node data */
             root.data = this.minValueNode(root.right).data;
-            // delete the in-order successor (that next biggest value)
+            // 3. delete the in-order successor (that next biggest value)
             root.right = this.delete(root.data, root.right);
         }
 
