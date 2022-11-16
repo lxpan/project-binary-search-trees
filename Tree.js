@@ -91,22 +91,18 @@ class Tree {
             }
             // if node has one right child, return that child
             else if (root.left == null) {
-                const tempNode = root.right;
-                root = null;
-                return tempNode;
+                return root.right;
             }
             // if node has one left child, return that child
             else if (root.right == null) {
-                const tempNode = root.left;
-                root = null;
-                return tempNode;
+                return root.left;
             }
             /* == node with two children ==
             1. find the next biggest value -- i.e. find smallest value in right subtree relative to target node
             2. delete this node and copy key to target node */
-            const temp = this.minValueNode(root.right);
-            root.data = temp.data;
-            root.right = this.delete(temp.data, root.right);
+            root.data = this.minValueNode(root.right).data;
+            // delete the in-order successor (that next biggest value)
+            root.right = this.delete(root.data, root.right);
         }
 
         return root;
@@ -141,6 +137,5 @@ console.log(testTree.prettyPrint());
 console.log('--------------');
 testTree.root = testTree.insert(2, testTree.root);
 testTree.root = testTree.delete(7, testTree.root);
+// console.log(testTree);
 console.log(testTree.prettyPrint());
-
-
