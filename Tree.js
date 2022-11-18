@@ -41,7 +41,7 @@ class Tree {
             return this.find(value, root.left);
         }
         // value greater than root value
-        return this.find(value, root.right)
+        return this.find(value, root.right);
     }
 
     insert(value, root) {
@@ -64,8 +64,8 @@ class Tree {
 
     minValueNode(node) {
         let current = node;
-        
-        while(current.left !== null) {
+
+        while (current.left !== null) {
             current = current.left;
         }
 
@@ -135,11 +135,11 @@ class Tree {
     // Queue: <-- [A, B, C, D] ---
     levelOrder(root, func) {
         let queue = [];
-        let nodesVisited = []
+        let nodesVisited = [];
 
         queue.push(root);
 
-        while(queue.length > 0) {
+        while (queue.length > 0) {
             // dequeue
             const node = queue.shift();
             nodesVisited.push(node.data);
@@ -148,8 +148,8 @@ class Tree {
             if (node.right) queue.push(node.right);
         }
 
-        if(func == null) {
-            return nodesVisited
+        if (func == null) {
+            return nodesVisited;
         }
 
         return nodesVisited.map(func);
@@ -166,7 +166,5 @@ console.log(testTree.prettyPrint());
 // console.log(testTree.prettyPrint());
 
 // console.log(testTree.find(100, testTree.root));
-const traversal = testTree.levelOrder(testTree.root, x => x * 2);
+const traversal = testTree.levelOrder(testTree.root, (x) => x * 2);
 console.log(traversal);
-
-
