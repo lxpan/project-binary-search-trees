@@ -164,7 +164,7 @@ class Tree {
                 return;
             }
     
-            recurseInOrder(root.left, visited);
+            recurseInOrder(root.left);
     
             if(typeof func == 'function') {
                 func(root.data);
@@ -172,7 +172,7 @@ class Tree {
                 visited.push(root.data);
             }
             
-            recurseInOrder(root.right, visited);
+            recurseInOrder(root.right);
         }
 
         recurseInOrder(startNode);
