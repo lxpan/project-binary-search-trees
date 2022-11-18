@@ -131,15 +131,42 @@ class Tree {
 
         _prettyPrint(this.root);
     }
+
+    // Queue: <-- [A, B, C, D] ---
+    levelOrder(root, func) {
+        let queue = [];
+        let nodesVisited = []
+
+        queue.push(root);
+
+        while(queue.length > 0) {
+            // dequeue
+            const node = queue.shift();
+            nodesVisited.push(node.data);
+            // enqueue
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+
+        if(func == null) {
+            return nodesVisited
+        }
+
+        return nodesVisited.map(func);
+    }
 }
 
 const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
-console.log(testTree.prettyPrint());
 console.log('--------------');
 testTree.root = testTree.insert(2, testTree.root);
+console.log(testTree.prettyPrint());
 // testTree.root = testTree.delete(7, testTree.root);
 // console.log(testTree);
 // console.log(testTree.prettyPrint());
 
-console.log(testTree.find(100, testTree.root));
+// console.log(testTree.find(100, testTree.root));
+const traversal = testTree.levelOrder(testTree.root, x => x * 2);
+console.log(traversal);
+
+
