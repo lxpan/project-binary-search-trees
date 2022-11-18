@@ -208,6 +208,32 @@ class Tree {
             console.log(visited);
             return visited;
         }        
+    }
+
+    postOrder(startNode=this.root, func) {
+        const visited = [];
+
+        const traverse = (root) => {
+            if (root == null) {
+                return;
+            }
+
+            traverse(root.left);
+            traverse(root.right);
+
+            if(typeof func == 'function') {
+                func(root.data);
+            } else {
+                visited.push(root.data);
+            }
+        }
+
+        traverse(startNode);
+
+        if (typeof func !== 'function') {
+            console.log(visited);
+            return visited;
+        }        
     }   
 }
 
@@ -227,4 +253,4 @@ console.log(testTree.prettyPrint());
 // testTree.inOrder(testTree.root, (x) => console.log(x * 2));
 testTree.inOrder();
 testTree.preOrder();
-
+testTree.postOrder();
