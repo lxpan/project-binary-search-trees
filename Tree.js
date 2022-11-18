@@ -30,16 +30,18 @@ class Tree {
         return root;
     }
 
-    search(value, root) {
+    find(value, root) {
+        // value found
         if (root == null || root.data == value) {
             return root;
         }
 
+        // value less than root value
         if (value < root.data) {
-            return this.insert(value, root.left);
-        } else {
-            return this.insert(value, root.right)
+            return this.find(value, root.left);
         }
+        // value greater than root value
+        return this.find(value, root.right)
     }
 
     insert(value, root) {
@@ -136,6 +138,8 @@ const testTree = new Tree(testArray);
 console.log(testTree.prettyPrint());
 console.log('--------------');
 testTree.root = testTree.insert(2, testTree.root);
-testTree.root = testTree.delete(7, testTree.root);
+// testTree.root = testTree.delete(7, testTree.root);
 // console.log(testTree);
-console.log(testTree.prettyPrint());
+// console.log(testTree.prettyPrint());
+
+console.log(testTree.find(100, testTree.root));
