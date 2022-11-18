@@ -159,12 +159,12 @@ class Tree {
     inOrder(startNode=this.root, func) {
         const visited = [];
 
-        const recurseInOrder = (root) => {
+        const traverse = (root) => {
             if (root == null) {
                 return;
             }
     
-            recurseInOrder(root.left);
+            traverse(root.left);
     
             if(typeof func == 'function') {
                 func(root.data);
@@ -172,10 +172,10 @@ class Tree {
                 visited.push(root.data);
             }
             
-            recurseInOrder(root.right);
+            traverse(root.right);
         }
 
-        recurseInOrder(startNode);
+        traverse(startNode);
 
         if (typeof func !== 'function') {
             console.log(visited);
