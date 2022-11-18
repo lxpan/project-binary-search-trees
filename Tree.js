@@ -154,6 +154,34 @@ class Tree {
 
         return nodesVisited.map(func);
     }
+
+    // Go left, visit root, go right
+    inOrder(startNode=this.root, func) {
+        const visited = [];
+
+        const recurseInOrder = (root) => {
+            if (root == null) {
+                return;
+            }
+    
+            recurseInOrder(root.left, visited);
+    
+            if(typeof func == 'function') {
+                func(root.data);
+            } else {
+                visited.push(root.data);
+            }
+            
+            recurseInOrder(root.right, visited);
+        }
+
+        recurseInOrder(startNode);
+
+        if (typeof func !== 'function') {
+            console.log(visited);
+            return visited;
+        }        
+    }
 }
 
 const testArray = [1, 7, 4, 4, 23, 8, 9];
@@ -166,5 +194,7 @@ console.log(testTree.prettyPrint());
 // console.log(testTree.prettyPrint());
 
 // console.log(testTree.find(100, testTree.root));
-const traversal = testTree.levelOrder(testTree.root, (x) => x * 2);
-console.log(traversal);
+// const traversal = testTree.levelOrder(testTree.root, (x) => x * 2);
+// console.log(traversal);
+
+testTree.inOrder(testTree.root, (x) => console.log(x * 2));
