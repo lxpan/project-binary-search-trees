@@ -234,23 +234,37 @@ class Tree {
             console.log(visited);
             return visited;
         }        
-    }   
+    }
+
+    // height of node = #edges in longest path from node to leaf node
+    height(node) {
+        // base case: at children-less leaf node
+        if(node == null) {
+            return -1;
+        }
+
+        // find height of left subtree
+        const leftHeight = this.height(node.left);
+        // find height of right subtree
+        const rightHeight = this.height(node.right);
+        // height = greater of two subtrees
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
 }
 
 const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
 console.log('--------------');
 testTree.root = testTree.insert(2, testTree.root);
-console.log(testTree.prettyPrint());
 // testTree.root = testTree.delete(7, testTree.root);
-// console.log(testTree);
-// console.log(testTree.prettyPrint());
+console.log(testTree.prettyPrint());
 
 // console.log(testTree.find(100, testTree.root));
 // const traversal = testTree.levelOrder(testTree.root, (x) => x * 2);
 // console.log(traversal);
 
 // testTree.inOrder(testTree.root, (x) => console.log(x * 2));
-testTree.inOrder();
-testTree.preOrder();
-testTree.postOrder();
+// testTree.inOrder();
+// testTree.preOrder();
+// testTree.postOrder();
+console.log(testTree.height(testTree.root.left.right.left));
