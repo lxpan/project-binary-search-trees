@@ -250,6 +250,27 @@ class Tree {
         // height = greater of two subtrees
         return Math.max(leftHeight, rightHeight) + 1;
     }
+
+    // value = node.data
+    depth(node) {
+        const rootDepth = 0;
+
+        function getDepth(root, target, _depth) {
+            // value found
+            if (root == null || root.data == target.data) {
+                return _depth;
+            }
+
+            // value less than root value
+            if (target.data < root.data) {
+                return getDepth(root.left, target, _depth + 1);
+            }
+            // value greater than root value
+            return getDepth(root.right, target, _depth + 1);
+        }
+
+        return getDepth(this.root, node, rootDepth);
+    }
 }
 
 const testArray = [1, 7, 4, 4, 23, 8, 9];
@@ -267,4 +288,6 @@ console.log(testTree.prettyPrint());
 // testTree.inOrder();
 // testTree.preOrder();
 // testTree.postOrder();
-console.log(testTree.height(testTree.root.left.right.left));
+// console.log(testTree.height(testTree.root.left.right.left));
+let nodeDepth = testTree.depth(testTree.root.left.right.left);
+console.log(nodeDepth);
