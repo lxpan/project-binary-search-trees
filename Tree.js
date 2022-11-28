@@ -184,7 +184,7 @@ class Tree {
     }
 
     // Visit root, left, right
-    preOrder(startNode=this.root, func) {
+    preOrder(startNode=this.root, func, logging=false) {
         const visited = [];
 
         const traverse = (root) => {
@@ -195,7 +195,10 @@ class Tree {
             if(typeof func == 'function') {
                 const result = func(root);
                 const value = root.data;
-                console.log(`Node value: ${value}, isBalanced: ${result}`);
+                
+                if(logging) {
+                    console.log(`Node value: ${value}, isBalanced: ${result}`);
+                }
                 
             } else {
                 visited.push(root.data);
@@ -295,7 +298,7 @@ class Tree {
             nodeHeights.push(heightDiff);
 
             return Math.abs(leftHeight - rightHeight) <= 1;
-        });
+        }, true);
 
         return !nodeHeights.some((height) => height > 1);
     }
