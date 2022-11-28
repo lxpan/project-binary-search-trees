@@ -12,6 +12,6 @@
     },
     "rules": {
         "indent": ["error", 4],
-        "brace-style": "allman"
+        "brace-style": "stroustrup"
     }
 }

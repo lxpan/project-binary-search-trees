@@ -52,8 +52,7 @@ class Tree {
         if (value < root.data) {
             // return this.insert(value, root.left);
             root.left = this.insert(value, root.left);
-        }
-        else if (value > root.data) {
+        } else if (value > root.data) {
             // return this.insert(value, root.right);
             root.right = this.insert(value, root.right);
         }
@@ -84,9 +83,7 @@ class Tree {
         // recurse through right subtree if value greater than root
         else if (data > root.data) {
             root.right = this.delete(data, root.right);
-        }
-
-        else {
+        } else {
             // if leaf node, then simply remove it
             if (root.left == null && root.right == null) {
                 return null;
@@ -156,35 +153,35 @@ class Tree {
     }
 
     // Go left, visit root, go right
-    inOrder(startNode=this.root, func) {
+    inOrder(startNode = this.root, func) {
         const visited = [];
 
         const traverse = (root) => {
             if (root == null) {
                 return;
             }
-    
+
             traverse(root.left);
-    
-            if(typeof func == 'function') {
+
+            if (typeof func == 'function') {
                 func(root.data);
             } else {
                 visited.push(root.data);
             }
-            
+
             traverse(root.right);
-        }
+        };
 
         traverse(startNode);
 
         if (typeof func !== 'function') {
             console.log(visited);
             return visited;
-        }        
+        }
     }
 
     // Visit root, left, right
-    preOrder(startNode=this.root, func, logging=false) {
+    preOrder(startNode = this.root, func, logging = false) {
         const visited = [];
 
         const traverse = (root) => {
@@ -192,31 +189,30 @@ class Tree {
                 return;
             }
 
-            if(typeof func == 'function') {
+            if (typeof func == 'function') {
                 const result = func(root);
                 const value = root.data;
-                
-                if(logging) {
+
+                if (logging) {
                     console.log(`Node value: ${value}, isBalanced: ${result}`);
                 }
-                
             } else {
                 visited.push(root.data);
             }
 
             traverse(root.left);
             traverse(root.right);
-        }
+        };
 
         traverse(startNode);
 
         if (typeof func !== 'function') {
             console.log(visited);
             return visited;
-        }        
+        }
     }
 
-    postOrder(startNode=this.root, func) {
+    postOrder(startNode = this.root, func) {
         const visited = [];
 
         const traverse = (root) => {
@@ -227,25 +223,25 @@ class Tree {
             traverse(root.left);
             traverse(root.right);
 
-            if(typeof func == 'function') {
+            if (typeof func == 'function') {
                 func(root.data);
             } else {
                 visited.push(root.data);
             }
-        }
+        };
 
         traverse(startNode);
 
         if (typeof func !== 'function') {
             console.log(visited);
             return visited;
-        }        
+        }
     }
 
     // height of node = #edges in longest path from node to leaf node
     height(node) {
         // base case: at children-less leaf node
-        if(node == null) {
+        if (node == null) {
             return -1;
         }
 
@@ -284,21 +280,25 @@ class Tree {
 
         // using preOrder node traversal, check that each node is balanced
         // balanced = left & right subtree height difference <= 1
-        this.preOrder(this.root, (_node) => {
-            if(_node == null) {
-                return;
-            }
+        this.preOrder(
+            this.root,
+            (_node) => {
+                if (_node == null) {
+                    return;
+                }
 
-            // at each node, get left & right subtree's height
-            const leftHeight = this.height(_node.left);
-            const rightHeight = this.height(_node.right);
-            const heightDiff = Math.abs(leftHeight - rightHeight);
-            console.log(`LR diff: ${heightDiff}`);
+                // at each node, get left & right subtree's height
+                const leftHeight = this.height(_node.left);
+                const rightHeight = this.height(_node.right);
+                const heightDiff = Math.abs(leftHeight - rightHeight);
+                console.log(`LR diff: ${heightDiff}`);
 
-            nodeHeights.push(heightDiff);
+                nodeHeights.push(heightDiff);
 
-            return Math.abs(leftHeight - rightHeight) <= 1;
-        }, true);
+                return Math.abs(leftHeight - rightHeight) <= 1;
+            },
+            true
+        );
 
         return !nodeHeights.some((height) => height > 1);
     }
