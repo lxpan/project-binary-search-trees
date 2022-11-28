@@ -330,11 +330,12 @@ testTree.root = testTree.insert(100, testTree.root);
 testTree.root = testTree.insert(101, testTree.root);
 testTree.root = testTree.insert(102, testTree.root);
 // testTree.root = testTree.delete(7, testTree.root);
-console.log(testTree.prettyPrint());
+testTree.prettyPrint();
 
 // let nodeDepth = testTree.depth(testTree.root.left.right.left);
 // console.log(nodeDepth);
-console.log(testTree.isBalanced());
-console.log(testTree.rebalance());
-console.log(testTree.prettyPrint());
-console.log(testTree.isBalanced());
+console.log(`Is tree balanced: ${testTree.isBalanced()}`);
+testTree.rebalance();
+console.log('*** After rebalancing... ***');
+testTree.prettyPrint();
+console.log(`Is tree balanced: ${testTree.isBalanced()}`);
