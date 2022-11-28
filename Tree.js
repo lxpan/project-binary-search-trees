@@ -183,7 +183,7 @@ class Tree {
         traverse(startNode);
 
         if (typeof func !== 'function') {
-            console.log(visited);
+            // console.log(visited);
             return visited;
         }
     }
@@ -241,7 +241,7 @@ class Tree {
         traverse(startNode);
 
         if (typeof func !== 'function') {
-            console.log(visited);
+            // console.log(visited);
             return visited;
         }
     }
@@ -317,26 +317,53 @@ class Tree {
         // return nodes;
 
         const sorted = this.sortArray(nodeValues);
-        console.log(sorted);
         this.root = this.buildTree(sorted, 0, sorted.length - 1);
     }
 }
 
-const testArray = [1, 7, 4, 4, 23, 8, 9];
-const testTree = new Tree(testArray);
-console.log('--------------');
-// testTree.root = testTree.insert(5, testTree.root);
-// testTree.root = testTree.insert(6, testTree.root);
-testTree.root = testTree.insert(100, testTree.root);
-testTree.root = testTree.insert(101, testTree.root);
-testTree.root = testTree.insert(102, testTree.root);
-// testTree.root = testTree.delete(7, testTree.root);
-testTree.prettyPrint();
+function randomArray(length, max) {
+    const array = [];
 
-// let nodeDepth = testTree.depth(testTree.root.left.right.left);
-// console.log(nodeDepth);
-console.log(`Is tree balanced: ${testTree.isBalanced()}`);
-testTree.rebalance();
+    for (let i = 0; i <= length; i++) {
+        const int = Math.floor(Math.random() * max);
+        array.push(int);
+    }
+
+    return array;
+}
+
+// 1. Create BST from array of random integers
+const randValues = randomArray(8, 20);
+const tree = new Tree(randValues);
+tree.prettyPrint();
+
+// 2. Confirm Tree is balanced
+console.log(`Tree is balanced: ${tree.isBalanced()}`);
+
+// 3. Print out the tree using various traversal methods
+console.log(`Level order: ${tree.levelOrder(tree.root)}`);
+console.log(`Pre order: ${tree.preOrder()}`);
+console.log(`Post order: ${tree.postOrder()}`);
+console.log(`In order: ${tree.inOrder()}`);
+
+// 4. Unbalance the tree by adding several very large numbers
+tree.insert(101, tree.root);
+tree.insert(107, tree.root);
+tree.insert(113, tree.root);
+tree.insert(131, tree.root);
+
+tree.prettyPrint();
+// 5. Confirm that tree is unbalanced
+console.log(`Tree is balanced: ${tree.isBalanced()}`);
+
+// 6. Rebalance tree
+tree.rebalance();
 console.log('*** After rebalancing... ***');
-testTree.prettyPrint();
-console.log(`Is tree balanced: ${testTree.isBalanced()}`);
+tree.prettyPrint();
+console.log(`Is tree balanced: ${tree.isBalanced()}`);
+
+// 7. Print out the tree using various traversal methods
+console.log(`Level order: ${tree.levelOrder(tree.root)}`);
+console.log(`Pre order: ${tree.preOrder()}`);
+console.log(`Post order: ${tree.postOrder()}`);
+console.log(`In order: ${tree.inOrder()}`);
