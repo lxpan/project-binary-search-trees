@@ -8,7 +8,7 @@ class Tree {
             // 2. Remove duplicates by "casting" array as a Set
             return Array.from(new Set(sorted));
         })(values);
-        console.log(this.array);
+        // console.log(this.array);
         this.root = this.buildTree(this.array, 0, this.array.length - 1);
     }
 
@@ -210,7 +210,7 @@ class Tree {
         traverse(startNode);
 
         if (typeof func !== 'function') {
-            console.log(visited);
+            // console.log(visited);
             return visited;
         }
     }
@@ -294,27 +294,44 @@ class Tree {
                 const leftHeight = this.height(_node.left);
                 const rightHeight = this.height(_node.right);
                 const heightDiff = Math.abs(leftHeight - rightHeight);
-                console.log(`LR diff: ${heightDiff}`);
+                // console.log(`LR diff: ${heightDiff}`);
 
                 nodeHeights.push(heightDiff);
 
                 return Math.abs(leftHeight - rightHeight) <= 1;
             },
-            true
+            false
         );
 
         return !nodeHeights.some((height) => height > 1);
+    }
+
+    rebalance() {
+        const nodeValues = this.preOrder(this.root);
+        // return nodes;
+
+        const sorted = ((v) => {
+            // 1. Sort values
+            const sorted = v.sort((a, b) => a - b);
+            // 2. Remove duplicates by "casting" array as a Set
+            return Array.from(new Set(sorted));
+        })(nodeValues);
+        console.log(sorted);
+        this.root = this.buildTree(sorted, 0, sorted.length - 1);
     }
 }
 
 const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
 console.log('--------------');
-// testTree.root = testTree.insert(5, testTree.root);
-// testTree.root = testTree.insert(6, testTree.root);
+testTree.root = testTree.insert(5, testTree.root);
+testTree.root = testTree.insert(6, testTree.root);
 // testTree.root = testTree.delete(7, testTree.root);
 console.log(testTree.prettyPrint());
 
 // let nodeDepth = testTree.depth(testTree.root.left.right.left);
 // console.log(nodeDepth);
+console.log(testTree.isBalanced());
+console.log(testTree.rebalance());
+console.log(testTree.prettyPrint());
 console.log(testTree.isBalanced());
