@@ -287,7 +287,6 @@ class Tree {
         const nodeHeights = [];
 
         // using preOrder node traversal, check that each node is balanced
-        // balanced = left & right subtree height difference <= 1
         this.preOrder(
             this.root,
             (_node) => {
@@ -298,11 +297,12 @@ class Tree {
                 // at each node, get left & right subtree's height
                 const leftHeight = this.height(_node.left);
                 const rightHeight = this.height(_node.right);
+                // calculate the absolute difference
                 const heightDiff = Math.abs(leftHeight - rightHeight);
                 // console.log(`LR diff: ${heightDiff}`);
 
                 nodeHeights.push(heightDiff);
-
+                // node is balanced if difference of left and right subtrees less than 1
                 return Math.abs(leftHeight - rightHeight) <= 1;
             },
             false
