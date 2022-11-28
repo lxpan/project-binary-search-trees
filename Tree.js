@@ -184,10 +184,11 @@ class Tree {
 
         traverse(startNode);
 
-        if (typeof func !== 'function') {
-            // console.log(visited);
-            return visited;
-        }
+        // if (typeof func !== 'function') {
+        //     // console.log(visited);
+        //     return visited;
+        // }
+        return visited;
     }
 
     // Visit root, left, right
@@ -217,10 +218,11 @@ class Tree {
 
         traverse(startNode);
 
-        if (typeof func !== 'function') {
-            // console.log(visited);
-            return visited;
-        }
+        // if (typeof func !== 'function') {
+        //     // console.log(visited);
+        //     return visited;
+        // }
+        return visited;
     }
 
     postOrder(startNode = this.root, func) {
@@ -244,10 +246,11 @@ class Tree {
 
         traverse(startNode);
 
-        if (typeof func !== 'function') {
-            // console.log(visited);
-            return visited;
-        }
+        // if (typeof func !== 'function') {
+        //     // console.log(visited);
+        //     return visited;
+        // }
+        return visited;
     }
 
     // height of node = #edges in longest path from node to leaf node
