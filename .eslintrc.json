@@ -12,6 +12,7 @@
     },
     "rules": {
         "indent": ["error", 4],
+        "import/extensions": "off",
         "brace-style": ["error", "stroustrup"],
         "no-param-reassign": ["error", { "props": false }],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
