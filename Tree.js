@@ -2,14 +2,19 @@ import Node from './Node.js';
 
 class Tree {
     constructor(values) {
-        this.array = ((v) => {
+        this.array = this.sortArray(values);
+        // console.log(this.array);
+        this.root = this.buildTree(this.array, 0, this.array.length - 1);
+    }
+
+    sortArray(values) {
+        const sorted = ((v) => {
             // 1. Sort values
             const sorted = v.sort((a, b) => a - b);
             // 2. Remove duplicates by "casting" array as a Set
             return Array.from(new Set(sorted));
         })(values);
-        // console.log(this.array);
-        this.root = this.buildTree(this.array, 0, this.array.length - 1);
+        return sorted;
     }
 
     buildTree(arr, start, end) {
@@ -310,12 +315,7 @@ class Tree {
         const nodeValues = this.preOrder(this.root);
         // return nodes;
 
-        const sorted = ((v) => {
-            // 1. Sort values
-            const sorted = v.sort((a, b) => a - b);
-            // 2. Remove duplicates by "casting" array as a Set
-            return Array.from(new Set(sorted));
-        })(nodeValues);
+        const sorted = this.sortArray(nodeValues);
         console.log(sorted);
         this.root = this.buildTree(sorted, 0, sorted.length - 1);
     }
@@ -324,8 +324,11 @@ class Tree {
 const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
 console.log('--------------');
-testTree.root = testTree.insert(5, testTree.root);
-testTree.root = testTree.insert(6, testTree.root);
+// testTree.root = testTree.insert(5, testTree.root);
+// testTree.root = testTree.insert(6, testTree.root);
+testTree.root = testTree.insert(100, testTree.root);
+testTree.root = testTree.insert(101, testTree.root);
+testTree.root = testTree.insert(102, testTree.root);
 // testTree.root = testTree.delete(7, testTree.root);
 console.log(testTree.prettyPrint());
 
