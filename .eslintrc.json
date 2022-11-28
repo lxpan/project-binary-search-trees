@@ -17,6 +17,7 @@
         "no-param-reassign": ["error", { "props": false }],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-underscore-dangle": "off",
-        "default-param-last": "off"
+        "default-param-last": "off",
+        "no-console": "off"
     }
 }
