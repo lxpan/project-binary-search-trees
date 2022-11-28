@@ -2,17 +2,17 @@ import Node from './Node.js';
 
 class Tree {
     constructor(values) {
-        this.array = this.sortArray(values);
+        this.array = this.constructor.sortArray(values);
         // console.log(this.array);
         this.root = this.buildTree(this.array, 0, this.array.length - 1);
     }
 
-    sortArray(values) {
+    static sortArray(values) {
         const sorted = ((v) => {
             // 1. Sort values
-            const sorted = v.sort((a, b) => a - b);
+            const sortedValues = v.sort((a, b) => a - b);
             // 2. Remove duplicates by "casting" array as a Set
-            return Array.from(new Set(sorted));
+            return Array.from(new Set(sortedValues));
         })(values);
         return sorted;
     }
@@ -37,7 +37,7 @@ class Tree {
 
     find(value, root) {
         // value found
-        if (root == null || root.data == value) {
+        if (root == null || root.data === value) {
             return root;
         }
 
@@ -50,7 +50,7 @@ class Tree {
     }
 
     insert(value, root) {
-        if (root == null || root == undefined) {
+        if (root === null || root === undefined) {
             return Node(value);
         }
 
@@ -67,7 +67,7 @@ class Tree {
         return root;
     }
 
-    minValueNode(node) {
+    static minValueNode(node) {
         let current = node;
 
         while (current.left !== null) {
@@ -97,15 +97,16 @@ class Tree {
                 return null;
             }
             // if node has one right child, return that child
-            else if (root.left == null) {
+            if (root.left == null) {
                 return root.right;
             }
             // if node has one left child, return that child
-            else if (root.right == null) {
+            if (root.right == null) {
                 return root.left;
             }
             /* == node with two children ==
-            1. find the next biggest value -- i.e. find smallest value in right subtree relative to target node
+            1. find the next biggest value
+            -- i.e. find smallest value in right subtree relative to target node
             2. copy NBV data to target node data */
             root.data = this.minValueNode(root.right).data;
             // 3. delete the in-order successor (that next biggest value)
@@ -121,7 +122,7 @@ class Tree {
                 _prettyPrint(
                     node.right,
                     `${prefix}${isLeft ? '│   ' : '    '}`,
-                    false
+                    false,
                 );
             }
             console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
@@ -129,7 +130,7 @@ class Tree {
                 _prettyPrint(
                     node.left,
                     `${prefix}${isLeft ? '    ' : '│   '}`,
-                    true
+                    true,
                 );
             }
         };
@@ -138,9 +139,9 @@ class Tree {
     }
 
     // Queue: <-- [A, B, C, D] ---
-    levelOrder(root, func) {
-        let queue = [];
-        let nodesVisited = [];
+    levelOrder(root = this.root, func) {
+        const queue = [];
+        const nodesVisited = [];
 
         queue.push(root);
 
@@ -171,9 +172,10 @@ class Tree {
 
             traverse(root.left);
 
-            if (typeof func == 'function') {
+            if (typeof func === 'function') {
                 func(root.data);
-            } else {
+            }
+            else {
                 visited.push(root.data);
             }
 
@@ -197,14 +199,15 @@ class Tree {
                 return;
             }
 
-            if (typeof func == 'function') {
+            if (typeof func === 'function') {
                 const result = func(root);
                 const value = root.data;
 
                 if (logging) {
                     console.log(`Node value: ${value}, isBalanced: ${result}`);
                 }
-            } else {
+            }
+            else {
                 visited.push(root.data);
             }
 
@@ -231,9 +234,10 @@ class Tree {
             traverse(root.left);
             traverse(root.right);
 
-            if (typeof func == 'function') {
+            if (typeof func === 'function') {
                 func(root.data);
-            } else {
+            }
+            else {
                 visited.push(root.data);
             }
         };
@@ -267,7 +271,7 @@ class Tree {
 
         function getDepth(root, target, _depth) {
             // value found
-            if (root == null || root.data == target.data) {
+            if (root == null || root.data === target.data) {
                 return _depth;
             }
 
@@ -290,10 +294,6 @@ class Tree {
         this.preOrder(
             this.root,
             (_node) => {
-                if (_node == null) {
-                    return;
-                }
-
                 // at each node, get left & right subtree's height
                 // NB: we are calling our previously implemented height() method
                 const leftHeight = this.height(_node.left);
@@ -306,7 +306,7 @@ class Tree {
                 // node is balanced if difference of left and right subtrees less than 1
                 return Math.abs(leftHeight - rightHeight) <= 1;
             },
-            false
+            false,
         );
 
         return !nodeHeights.some((height) => height > 1);
@@ -316,7 +316,7 @@ class Tree {
         const nodeValues = this.preOrder(this.root);
         // return nodes;
 
-        const sorted = this.sortArray(nodeValues);
+        const sorted = this.constructor.sortArray(nodeValues);
         this.root = this.buildTree(sorted, 0, sorted.length - 1);
     }
 }

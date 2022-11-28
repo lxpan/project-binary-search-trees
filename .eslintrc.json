@@ -12,6 +12,9 @@
     },
     "rules": {
         "indent": ["error", 4],
-        "brace-style": "stroustrup"
+        "brace-style": ["error", "stroustrup"],
+        "no-param-reassign": ["error", { "props": false }],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-underscore-dangle": "off"
     }
 }
