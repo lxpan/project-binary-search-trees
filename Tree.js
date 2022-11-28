@@ -295,6 +295,7 @@ class Tree {
                 }
 
                 // at each node, get left & right subtree's height
+                // NB: we are calling our previously implemented height() method
                 const leftHeight = this.height(_node.left);
                 const rightHeight = this.height(_node.right);
                 // calculate the absolute difference
