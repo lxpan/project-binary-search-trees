@@ -208,21 +208,26 @@ class Tree {
                     console.log(`Node value: ${value}, isBalanced: ${result}`);
                 }
             }
-            else {
-                visited.push(root.data);
-            }
-
+            visited.push(root);
             traverse(root.left);
             traverse(root.right);
         };
 
         traverse(startNode);
 
-        // if (typeof func !== 'function') {
-        //     // console.log(visited);
-        //     return visited;
-        // }
-        return visited;
+        const visitedValues = visited.map((node) => node.data);
+
+        if (typeof func === 'function') {
+            const results = visited.map(func);
+
+            return {
+                visited,
+                visitedValues,
+                results,
+            };
+        }
+
+        return visitedValues;
     }
 
     postOrder(startNode = this.root, func) {
@@ -291,10 +296,10 @@ class Tree {
 
     // checks if tree is balanced
     isBalanced() {
-        const nodeHeights = [];
+        // const nodeHeights = [];
 
         // using preOrder node traversal, check that each node is balanced
-        this.preOrder(
+        const nodeHeights = this.preOrder(
             this.root,
             (_node) => {
                 // at each node, get left & right subtree's height
@@ -305,14 +310,17 @@ class Tree {
                 const heightDiff = Math.abs(leftHeight - rightHeight);
                 // console.log(`LR diff: ${heightDiff}`);
 
-                nodeHeights.push(heightDiff);
+                // nodeHeights.push(heightDiff);
                 // node is balanced if difference of left and right subtrees less than 1
-                return Math.abs(leftHeight - rightHeight) <= 1;
+                return heightDiff <= 1;
             },
             false,
         );
 
-        return !nodeHeights.some((height) => height > 1);
+        // console.log(nodeHeights);
+
+        // if any node is false, then the overall tree is unbalanced
+        return !nodeHeights.results.some((bool) => bool === false);
     }
 
     rebalance() {
