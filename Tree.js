@@ -193,7 +193,10 @@ class Tree {
             }
 
             if(typeof func == 'function') {
-                func(root.data);
+                const result = func(root);
+                const value = root.data;
+                console.log(`Node value: ${value}, isBalanced: ${result}`);
+                
             } else {
                 visited.push(root.data);
             }
@@ -271,23 +274,41 @@ class Tree {
 
         return getDepth(this.root, node, rootDepth);
     }
+
+    // checks if tree is balanced
+    isBalanced() {
+        const nodeHeights = [];
+
+        // using preOrder node traversal, check that each node is balanced
+        // balanced = left & right subtree height difference <= 1
+        this.preOrder(this.root, (_node) => {
+            if(_node == null) {
+                return;
+            }
+
+            // at each node, get left & right subtree's height
+            const leftHeight = this.height(_node.left);
+            const rightHeight = this.height(_node.right);
+            const heightDiff = Math.abs(leftHeight - rightHeight);
+            console.log(`LR diff: ${heightDiff}`);
+
+            nodeHeights.push(heightDiff);
+
+            return Math.abs(leftHeight - rightHeight) <= 1;
+        });
+
+        return !nodeHeights.some((height) => height > 1);
+    }
 }
 
 const testArray = [1, 7, 4, 4, 23, 8, 9];
 const testTree = new Tree(testArray);
 console.log('--------------');
-testTree.root = testTree.insert(2, testTree.root);
+// testTree.root = testTree.insert(5, testTree.root);
+// testTree.root = testTree.insert(6, testTree.root);
 // testTree.root = testTree.delete(7, testTree.root);
 console.log(testTree.prettyPrint());
 
-// console.log(testTree.find(100, testTree.root));
-// const traversal = testTree.levelOrder(testTree.root, (x) => x * 2);
-// console.log(traversal);
-
-// testTree.inOrder(testTree.root, (x) => console.log(x * 2));
-// testTree.inOrder();
-// testTree.preOrder();
-// testTree.postOrder();
-// console.log(testTree.height(testTree.root.left.right.left));
-let nodeDepth = testTree.depth(testTree.root.left.right.left);
-console.log(nodeDepth);
+// let nodeDepth = testTree.depth(testTree.root.left.right.left);
+// console.log(nodeDepth);
+console.log(testTree.isBalanced());
