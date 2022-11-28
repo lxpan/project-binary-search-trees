@@ -3,7 +3,6 @@ import Node from './Node.js';
 class Tree {
     constructor(values) {
         this.array = this.constructor.sortArray(values);
-        // console.log(this.array);
         this.root = this.buildTree(this.array, 0, this.array.length - 1);
     }
 
@@ -184,10 +183,6 @@ class Tree {
 
         traverse(startNode);
 
-        // if (typeof func !== 'function') {
-        //     // console.log(visited);
-        //     return visited;
-        // }
         return visited;
     }
 
@@ -251,10 +246,6 @@ class Tree {
 
         traverse(startNode);
 
-        // if (typeof func !== 'function') {
-        //     // console.log(visited);
-        //     return visited;
-        // }
         return visited;
     }
 
@@ -308,16 +299,11 @@ class Tree {
                 const rightHeight = this.height(_node.right);
                 // calculate the absolute difference
                 const heightDiff = Math.abs(leftHeight - rightHeight);
-                // console.log(`LR diff: ${heightDiff}`);
-
-                // nodeHeights.push(heightDiff);
                 // node is balanced if difference of left and right subtrees less than 1
                 return heightDiff <= 1;
             },
             false,
         );
-
-        // console.log(nodeHeights);
 
         // if any node is false, then the overall tree is unbalanced
         return !nodeHeights.results.some((bool) => bool === false);
