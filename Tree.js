@@ -52,7 +52,8 @@ class Tree {
         if (value < root.data) {
             // return this.insert(value, root.left);
             root.left = this.insert(value, root.left);
-        } else if (value > root.data) {
+        }
+        else if (value > root.data) {
             // return this.insert(value, root.right);
             root.right = this.insert(value, root.right);
         }
@@ -83,7 +84,9 @@ class Tree {
         // recurse through right subtree if value greater than root
         else if (data > root.data) {
             root.right = this.delete(data, root.right);
-        } else {
+        }
+
+        else {
             // if leaf node, then simply remove it
             if (root.left == null && root.right == null) {
                 return null;
